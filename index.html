@@ -1,1 +1,1697 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Top Motors — Vehículos Usados Premium en Ecuador</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet" />
+  <style>
+    /* ─── RESET & BASE ─────────────────────────────────────────────── */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    :root {
+      --blue:       #0B1F3A;
+      --blue-mid:   #122644;
+      --blue-light: #1A3A5C;
+      --black:      #080808;
+      --beige:      #E8DCC8;
+      --beige-dark: #C8AA82;
+      --cream:      #F5EFE3;
+      --white:      #FFFFFF;
+      --gray:       #6B7280;
+      --gray-light: #9CA3AF;
+      --border:     rgba(232,220,200,0.15);
+      --card-bg:    #0F2236;
+      --nav-h:      72px;
+      --radius:     12px;
+      --radius-lg:  20px;
+      --shadow:     0 4px 24px rgba(0,0,0,0.25);
+      --shadow-lg:  0 12px 48px rgba(0,0,0,0.4);
+      --transition: 0.3s cubic-bezier(0.4,0,0.2,1);
+    }
+    html { scroll-behavior: smooth; font-size: 16px; }
+    body {
+      font-family: 'Inter', sans-serif;
+      background: var(--black);
+      color: var(--white);
+      -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
+    }
+    a { text-decoration: none; color: inherit; }
+    img { max-width: 100%; display: block; }
+    ul { list-style: none; }
+    button { font-family: inherit; cursor: pointer; border: none; outline: none; }
+
+    /* ─── SCROLLBAR ────────────────────────────────────────────────── */
+    ::-webkit-scrollbar { width: 6px; }
+    ::-webkit-scrollbar-track { background: var(--black); }
+    ::-webkit-scrollbar-thumb { background: var(--blue-light); border-radius: 3px; }
+
+    /* ─── ANNOUNCEMENT BAR ─────────────────────────────────────────── */
+    .announcement {
+      background: var(--beige-dark);
+      color: var(--black);
+      text-align: center;
+      padding: 10px 20px;
+      font-size: 13px;
+      font-weight: 600;
+      letter-spacing: 0.04em;
+      position: relative;
+      z-index: 200;
+    }
+    .announcement span { margin: 0 8px; opacity: 0.5; }
+
+    /* ─── NAVBAR ───────────────────────────────────────────────────── */
+    .navbar {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      height: var(--nav-h);
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 0 48px;
+      z-index: 100;
+      transition: background var(--transition), backdrop-filter var(--transition), box-shadow var(--transition);
+    }
+    .navbar.scrolled {
+      background: rgba(8,8,8,0.85);
+      backdrop-filter: blur(20px) saturate(180%);
+      -webkit-backdrop-filter: blur(20px) saturate(180%);
+      box-shadow: 0 1px 0 var(--border);
+    }
+    .nav-logo {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      font-size: 20px;
+      font-weight: 800;
+      letter-spacing: -0.02em;
+      color: var(--white);
+    }
+    .nav-logo .logo-mark {
+      width: 36px; height: 36px;
+      background: linear-gradient(135deg, var(--beige-dark), var(--beige));
+      border-radius: 8px;
+      display: flex; align-items: center; justify-content: center;
+      font-size: 14px; font-weight: 900; color: var(--black);
+    }
+    .nav-links {
+      display: flex;
+      align-items: center;
+      gap: 36px;
+    }
+    .nav-links a {
+      font-size: 14px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.75);
+      transition: color var(--transition);
+      letter-spacing: 0.01em;
+    }
+    .nav-links a:hover { color: var(--white); }
+    .nav-cta {
+      background: var(--beige);
+      color: var(--black);
+      padding: 10px 20px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 600;
+      transition: background var(--transition), transform var(--transition);
+    }
+    .nav-cta:hover { background: var(--white); transform: translateY(-1px); }
+    .nav-mobile-btn {
+      display: none;
+      flex-direction: column;
+      gap: 5px;
+      background: none;
+      padding: 4px;
+    }
+    .nav-mobile-btn span {
+      width: 24px; height: 2px;
+      background: var(--white);
+      border-radius: 2px;
+      transition: var(--transition);
+    }
+    .mobile-menu {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(8,8,8,0.97);
+      backdrop-filter: blur(20px);
+      z-index: 99;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 36px;
+    }
+    .mobile-menu.open { display: flex; }
+    .mobile-menu a {
+      font-size: 28px;
+      font-weight: 700;
+      color: var(--white);
+      letter-spacing: -0.02em;
+      transition: color var(--transition);
+    }
+    .mobile-menu a:hover { color: var(--beige); }
+    .mobile-close {
+      position: absolute;
+      top: 24px; right: 24px;
+      background: none;
+      color: var(--white);
+      font-size: 28px;
+      font-weight: 300;
+    }
+
+    /* ─── HERO ─────────────────────────────────────────────────────── */
+    .hero {
+      position: relative;
+      height: 100vh;
+      min-height: 700px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+    .hero-bg {
+      position: absolute;
+      inset: 0;
+      background-image: url('https://a.storyblok.com/f/322327/3840x1266/35c79ffa11/ma22t3box0004-macan-driving.jpg/m/3518x1506/smart/filters:format(avif)?dpl=dpl_81uxYrKMDjYb35TStcEuM4gA18vN');
+      background-size: cover;
+      background-position: center;
+      background-repeat: no-repeat;
+      transform: scale(1.05);
+      transition: transform 8s ease-out;
+    }
+    .hero-bg.loaded { transform: scale(1); }
+    .hero-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(
+        112deg,
+        rgba(8,8,8,0.78) 0%,
+        rgba(8,8,8,0.62) 42%,
+        rgba(8,8,8,0.38) 68%,
+        rgba(8,8,8,0.7) 100%
+      );
+    }
+    .hero-content {
+      position: relative;
+      z-index: 2;
+      text-align: left;
+      padding: 0 24px;
+      max-width: 900px;
+      margin: 0 auto;
+    }
+    .hero-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      background: rgba(232,220,200,0.15);
+      border: 1px solid rgba(232,220,200,0.3);
+      backdrop-filter: blur(10px);
+      color: var(--beige);
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      padding: 8px 16px;
+      border-radius: 50px;
+      margin-bottom: 28px;
+      opacity: 0;
+      transform: translateY(20px);
+      animation: fadeUp 0.8s 0.2s forwards;
+    }
+    .hero-badge::before {
+      content: '';
+      width: 6px; height: 6px;
+      background: var(--beige-dark);
+      border-radius: 50%;
+    }
+    .hero-title {
+      font-size: clamp(48px, 7vw, 92px);
+      font-weight: 900;
+      line-height: 1.02;
+      letter-spacing: -0.03em;
+      margin-bottom: 24px;
+      color: var(--white);
+      text-shadow: 0 8px 24px rgba(0,0,0,0.45);
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.8s 0.35s forwards;
+    }
+    .hero-title span {
+      display: block;
+      white-space: nowrap;
+    }
+    .hero-title em {
+      font-style: normal;
+      background: linear-gradient(135deg, var(--beige), var(--beige-dark));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
+    }
+    .hero-subtitle {
+      font-size: clamp(15px, 2vw, 18px);
+      font-weight: 400;
+      color: rgba(255,255,255,0.84);
+      line-height: 1.6;
+      max-width: 660px;
+      margin-bottom: 38px;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.8s 0.5s forwards;
+    }
+    .hero-actions {
+      display: flex;
+      gap: 14px;
+      justify-content: flex-start;
+      flex-wrap: wrap;
+      opacity: 0;
+      transform: translateY(24px);
+      animation: fadeUp 0.8s 0.65s forwards;
+    }
+    .btn-primary {
+      background: var(--beige);
+      color: var(--black);
+      padding: 15px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 600;
+      letter-spacing: -0.01em;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-primary:hover {
+      background: var(--white);
+      transform: translateY(-2px);
+      box-shadow: 0 8px 32px rgba(232,220,200,0.25);
+    }
+    .btn-secondary {
+      background: rgba(255,255,255,0.1);
+      border: 1px solid rgba(255,255,255,0.25);
+      color: var(--white);
+      padding: 15px 32px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 500;
+      backdrop-filter: blur(10px);
+      transition: background var(--transition), transform var(--transition);
+      display: inline-flex; align-items: center; gap: 8px;
+    }
+    .btn-secondary:hover {
+      background: rgba(255,255,255,0.18);
+      transform: translateY(-2px);
+    }
+    .btn-whatsapp {
+      background: #25D366;
+      color: var(--white);
+      padding: 12px 22px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background var(--transition), transform var(--transition), box-shadow var(--transition);
+    }
+    .btn-whatsapp:hover {
+      background: #20BC5A;
+      transform: translateY(-2px);
+      box-shadow: 0 6px 24px rgba(37,211,102,0.3);
+    }
+    .hero-scroll {
+      position: absolute;
+      bottom: 36px;
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 8px;
+      opacity: 0;
+      animation: fadeUp 1s 1.2s forwards;
+      cursor: pointer;
+    }
+    .hero-scroll span {
+      font-size: 11px;
+      font-weight: 500;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+    }
+    .scroll-line {
+      width: 1px;
+      height: 40px;
+      background: linear-gradient(to bottom, rgba(255,255,255,0.5), transparent);
+      animation: scrollPulse 2s ease-in-out infinite;
+    }
+
+    /* ─── STATS BAR ─────────────────────────────────────────────────── */
+    .stats-bar {
+      background: var(--blue);
+      border-top: 1px solid var(--border);
+      border-bottom: 1px solid var(--border);
+      padding: 28px 48px;
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 24px;
+    }
+    .stat-item {
+      text-align: center;
+      padding: 8px 0;
+    }
+    .stat-number {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--beige);
+      line-height: 1;
+      margin-bottom: 4px;
+    }
+    .stat-label {
+      font-size: 12px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.5);
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+    }
+
+    /* ─── SECTIONS SHARED ──────────────────────────────────────────── */
+    section { padding: 100px 0; }
+    .container {
+      max-width: 1280px;
+      margin: 0 auto;
+      padding: 0 48px;
+    }
+    .section-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--beige-dark);
+      margin-bottom: 14px;
+    }
+    .section-title {
+      font-size: clamp(32px, 4vw, 52px);
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      line-height: 1.05;
+      margin-bottom: 16px;
+    }
+    .section-title em {
+      font-style: normal;
+      color: var(--beige);
+    }
+    .section-sub {
+      font-size: 16px;
+      font-weight: 400;
+      color: var(--gray-light);
+      max-width: 540px;
+      line-height: 1.65;
+    }
+    .section-header {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      margin-bottom: 56px;
+      gap: 24px;
+    }
+    .section-header-left { flex: 1; }
+    .fade-in {
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.7s ease, transform 0.7s ease;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* ─── VEHICLE CARDS ─────────────────────────────────────────────── */
+    .vehicles-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 24px;
+    }
+    .vehicle-card {
+      background: var(--card-bg);
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      border: 1px solid var(--border);
+      transition: transform var(--transition), box-shadow var(--transition), border-color var(--transition);
+      cursor: pointer;
+    }
+    .vehicle-card:hover {
+      transform: translateY(-6px);
+      box-shadow: var(--shadow-lg);
+      border-color: rgba(232,220,200,0.3);
+    }
+    .card-image {
+      position: relative;
+      aspect-ratio: 16/10;
+      overflow: hidden;
+      background: linear-gradient(135deg, #0F2236, #1a3a5c);
+    }
+    .card-image img {
+      width: 100%; height: 100%;
+      object-fit: cover;
+      transition: transform 0.6s ease;
+    }
+    .vehicle-card:hover .card-image img { transform: scale(1.05); }
+    .card-image-placeholder {
+      width: 100%; height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 12px;
+      background: linear-gradient(135deg, #0F2236, #162F4A);
+    }
+    .card-image-placeholder svg { opacity: 0.3; }
+    .card-image-placeholder span {
+      font-size: 12px;
+      color: rgba(255,255,255,0.3);
+      font-weight: 500;
+    }
+    .card-badge {
+      position: absolute;
+      top: 14px; left: 14px;
+      background: var(--beige-dark);
+      color: var(--black);
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      padding: 5px 10px;
+      border-radius: 50px;
+    }
+    .card-body {
+      padding: 22px;
+    }
+    .card-brand {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: var(--beige-dark);
+      margin-bottom: 4px;
+    }
+    .card-name {
+      font-size: 18px;
+      font-weight: 700;
+      letter-spacing: -0.02em;
+      color: var(--white);
+      margin-bottom: 14px;
+      line-height: 1.2;
+    }
+    .card-specs {
+      display: flex;
+      gap: 16px;
+      margin-bottom: 18px;
+      flex-wrap: wrap;
+    }
+    .spec-chip {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 12px;
+      color: rgba(255,255,255,0.55);
+      font-weight: 500;
+    }
+    .spec-chip svg { opacity: 0.6; flex-shrink: 0; }
+    .card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 18px;
+      border-top: 1px solid var(--border);
+      gap: 12px;
+    }
+    .card-price {
+      font-size: 22px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      color: var(--beige);
+    }
+    .card-price span {
+      font-size: 13px;
+      font-weight: 500;
+      color: var(--gray);
+      margin-right: 2px;
+    }
+    .card-actions {
+      display: flex;
+      gap: 8px;
+    }
+    .btn-card-detail {
+      background: rgba(232,220,200,0.1);
+      border: 1px solid rgba(232,220,200,0.2);
+      color: var(--beige);
+      padding: 9px 16px;
+      border-radius: 50px;
+      font-size: 12px;
+      font-weight: 600;
+      transition: background var(--transition);
+      white-space: nowrap;
+    }
+    .btn-card-detail:hover {
+      background: rgba(232,220,200,0.2);
+    }
+    .btn-card-wa {
+      background: rgba(37,211,102,0.12);
+      border: 1px solid rgba(37,211,102,0.25);
+      color: #25D366;
+      width: 38px; height: 38px;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      transition: background var(--transition), transform var(--transition);
+      flex-shrink: 0;
+    }
+    .btn-card-wa:hover {
+      background: rgba(37,211,102,0.2);
+      transform: scale(1.1);
+    }
+    .card-location {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 11px;
+      color: rgba(255,255,255,0.35);
+      font-weight: 500;
+      margin-bottom: 16px;
+    }
+
+    /* ─── FEATURED ─────────────────────────────────────────────────── */
+    #destacados { background: var(--black); }
+    #destacados .vehicles-grid { grid-template-columns: repeat(3, 1fr); }
+
+    /* ─── INVENTORY ─────────────────────────────────────────────────── */
+    #inventario { background: #050D18; }
+    .filters-bar {
+      display: flex;
+      gap: 10px;
+      margin-bottom: 36px;
+      flex-wrap: wrap;
+      align-items: center;
+    }
+    .filter-btn {
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: rgba(255,255,255,0.6);
+      padding: 9px 18px;
+      border-radius: 50px;
+      font-size: 13px;
+      font-weight: 500;
+      transition: all var(--transition);
+      cursor: pointer;
+      font-family: inherit;
+    }
+    .filter-btn:hover, .filter-btn.active {
+      background: var(--blue-light);
+      border-color: rgba(232,220,200,0.25);
+      color: var(--white);
+    }
+    .inventory-count {
+      font-size: 13px;
+      color: var(--gray);
+      margin-left: auto;
+    }
+    .inventory-count strong {
+      color: var(--beige);
+      font-weight: 700;
+    }
+
+    /* ─── PAGINATION ───────────────────────────────────────────────── */
+    .pagination {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      margin-top: 60px;
+      flex-wrap: wrap;
+    }
+    .page-btn {
+      min-width: 42px;
+      height: 42px;
+      border-radius: 50%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      color: rgba(255,255,255,0.6);
+      font-size: 14px;
+      font-weight: 500;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      transition: all var(--transition);
+      font-family: inherit;
+      padding: 0 8px;
+    }
+    .page-btn:hover { background: var(--blue-light); color: var(--white); border-color: rgba(232,220,200,0.25); }
+    .page-btn.active { background: var(--beige); color: var(--black); border-color: var(--beige); font-weight: 700; }
+    .page-btn:disabled { opacity: 0.3; cursor: not-allowed; }
+    .page-btn.prev-next {
+      padding: 0 16px;
+      border-radius: 50px;
+      gap: 6px;
+      font-size: 13px;
+    }
+
+    /* ─── NOSOTROS ─────────────────────────────────────────────────── */
+    #nosotros { background: var(--blue); }
+    .nosotros-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 80px;
+      align-items: center;
+    }
+    .nosotros-image {
+      position: relative;
+      border-radius: var(--radius-lg);
+      overflow: hidden;
+      aspect-ratio: 4/3;
+      background: linear-gradient(135deg, #0F2236, #1a3a5c);
+    }
+    .nosotros-image img { width: 100%; height: 100%; object-fit: cover; }
+    .nosotros-image-overlay {
+      position: absolute;
+      inset: 0;
+      background: linear-gradient(135deg, rgba(11,31,58,0.3), transparent);
+    }
+    .feature-list { margin-top: 36px; display: flex; flex-direction: column; gap: 20px; }
+    .feature-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .feature-icon {
+      width: 44px; height: 44px;
+      border-radius: 10px;
+      background: rgba(232,220,200,0.1);
+      border: 1px solid rgba(232,220,200,0.2);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--beige);
+    }
+    .feature-text h4 {
+      font-size: 15px; font-weight: 700; color: var(--white); margin-bottom: 4px;
+    }
+    .feature-text p { font-size: 13px; color: rgba(255,255,255,0.5); line-height: 1.6; }
+    .notice-card {
+      background: rgba(200, 170, 130, 0.15);
+      border: 1px solid rgba(200, 170, 130, 0.35);
+      border-radius: var(--radius);
+      padding: 20px 24px;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      margin-top: 28px;
+    }
+    .notice-card .icon {
+      width: 28px;
+      height: 28px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--beige);
+      flex-shrink: 0;
+    }
+    .notice-card .icon svg {
+      width: 22px;
+      height: 22px;
+      display: block;
+    }
+    .notice-card h4 { font-size: 16px; font-weight: 700; color: var(--beige); margin-bottom: 2px; }
+    .notice-card p { font-size: 13px; color: rgba(255,255,255,0.6); line-height: 1.5; }
+
+    /* ─── CONTACTO ─────────────────────────────────────────────────── */
+    #contacto { background: var(--black); }
+    .contacto-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 64px;
+      align-items: start;
+    }
+    .contact-info { display: flex; flex-direction: column; gap: 24px; }
+    .contact-item {
+      display: flex;
+      gap: 16px;
+      align-items: flex-start;
+    }
+    .contact-icon {
+      width: 48px; height: 48px;
+      border-radius: 12px;
+      background: var(--blue);
+      border: 1px solid var(--border);
+      display: flex; align-items: center; justify-content: center;
+      flex-shrink: 0;
+      color: var(--beige);
+    }
+    .contact-item h4 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      color: var(--beige-dark);
+      margin-bottom: 4px;
+    }
+    .contact-item p, .contact-item a {
+      font-size: 15px;
+      font-weight: 500;
+      color: rgba(255,255,255,0.8);
+      line-height: 1.5;
+      transition: color var(--transition);
+    }
+    .contact-item a:hover { color: var(--beige); }
+    .contact-form {
+      background: var(--blue);
+      border: 1px solid var(--border);
+      border-radius: var(--radius-lg);
+      padding: 36px;
+    }
+    .form-title { font-size: 20px; font-weight: 700; margin-bottom: 24px; }
+    .form-group { margin-bottom: 18px; }
+    .form-group label {
+      display: block;
+      font-size: 12px;
+      font-weight: 600;
+      letter-spacing: 0.05em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.5);
+      margin-bottom: 8px;
+    }
+    .form-group input,
+    .form-group textarea,
+    .form-group select {
+      width: 100%;
+      background: rgba(255,255,255,0.05);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 13px 16px;
+      font-size: 15px;
+      font-family: inherit;
+      color: var(--white);
+      outline: none;
+      transition: border-color var(--transition), background var(--transition);
+    }
+    .form-group input:focus,
+    .form-group textarea:focus,
+    .form-group select:focus {
+      border-color: rgba(232,220,200,0.5);
+      background: rgba(255,255,255,0.08);
+    }
+    .form-group textarea { min-height: 120px; resize: vertical; }
+    .form-group select { cursor: pointer; }
+    .form-group select option { background: var(--blue); }
+    .btn-submit {
+      width: 100%;
+      background: var(--beige);
+      color: var(--black);
+      padding: 15px;
+      border-radius: 50px;
+      font-size: 15px;
+      font-weight: 700;
+      cursor: pointer;
+      transition: background var(--transition), transform var(--transition);
+      font-family: inherit;
+    }
+    .btn-submit:hover { background: var(--white); transform: translateY(-1px); }
+    .wa-cta-banner {
+      background: linear-gradient(135deg, #0A3D1E, #0D5C2A);
+      border: 1px solid rgba(37,211,102,0.2);
+      border-radius: var(--radius-lg);
+      padding: 28px 32px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 24px;
+      margin-top: 24px;
+    }
+    .wa-cta-banner h4 { font-size: 16px; font-weight: 700; margin-bottom: 4px; }
+    .wa-cta-banner p { font-size: 13px; color: rgba(255,255,255,0.6); }
+
+    /* ─── FOOTER ───────────────────────────────────────────────────── */
+    footer {
+      background: #030810;
+      border-top: 1px solid var(--border);
+      padding: 60px 0 32px;
+    }
+    .footer-grid {
+      display: grid;
+      grid-template-columns: 2fr 1fr 1fr 1fr;
+      gap: 48px;
+      margin-bottom: 48px;
+    }
+    .footer-brand p {
+      font-size: 13px;
+      color: rgba(255,255,255,0.4);
+      line-height: 1.7;
+      margin-top: 14px;
+      max-width: 280px;
+    }
+    .footer-col h5 {
+      font-size: 12px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.4);
+      margin-bottom: 18px;
+    }
+    .footer-col ul { display: flex; flex-direction: column; gap: 10px; }
+    .footer-col ul li a {
+      font-size: 14px;
+      color: rgba(255,255,255,0.6);
+      transition: color var(--transition);
+    }
+    .footer-col ul li a:hover { color: var(--beige); }
+    .footer-bottom {
+      border-top: 1px solid var(--border);
+      padding-top: 28px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 20px;
+      flex-wrap: wrap;
+    }
+    .footer-bottom p { font-size: 12px; color: rgba(255,255,255,0.3); }
+
+    /* ─── MODAL / DETAIL VIEW ──────────────────────────────────────── */
+    .modal-overlay {
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.92);
+      backdrop-filter: blur(20px);
+      z-index: 1000;
+      display: none;
+      align-items: flex-start;
+      justify-content: center;
+      padding: 24px;
+      overflow-y: auto;
+    }
+    .modal-overlay.open { display: flex; }
+    .modal {
+      background: var(--blue);
+      border: 1px solid var(--border);
+      border-radius: 24px;
+      width: 100%;
+      max-width: 960px;
+      overflow: hidden;
+      position: relative;
+      margin: auto;
+    }
+    .modal-image {
+      position: relative;
+      aspect-ratio: 16/9;
+      background: linear-gradient(135deg, #0F2236, #1a3a5c);
+      overflow: hidden;
+    }
+    .modal-image img { width: 100%; height: 100%; object-fit: cover; }
+    .modal-image-placeholder {
+      width: 100%; height: 100%;
+      display: flex; align-items: center; justify-content: center;
+      flex-direction: column; gap: 14px;
+    }
+    .modal-image-placeholder svg { opacity: 0.2; }
+    .modal-image-placeholder span { font-size: 14px; color: rgba(255,255,255,0.25); }
+    .modal-close {
+      position: absolute;
+      top: 20px; right: 20px;
+      width: 40px; height: 40px;
+      border-radius: 50%;
+      background: rgba(0,0,0,0.5);
+      backdrop-filter: blur(10px);
+      color: var(--white);
+      font-size: 20px;
+      display: flex; align-items: center; justify-content: center;
+      cursor: pointer;
+      z-index: 10;
+      border: 1px solid rgba(255,255,255,0.15);
+      transition: background var(--transition);
+    }
+    .modal-close:hover { background: rgba(0,0,0,0.8); }
+    .modal-body { padding: 36px; }
+    .modal-brand-label {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--beige-dark);
+      margin-bottom: 6px;
+    }
+    .modal-title {
+      font-size: 32px;
+      font-weight: 800;
+      letter-spacing: -0.03em;
+      margin-bottom: 8px;
+    }
+    .modal-price {
+      font-size: 36px;
+      font-weight: 800;
+      color: var(--beige);
+      letter-spacing: -0.03em;
+      margin-bottom: 28px;
+    }
+    .modal-price span { font-size: 18px; font-weight: 500; color: var(--gray); }
+    .modal-specs-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 16px;
+      margin-bottom: 28px;
+    }
+    .modal-spec {
+      background: rgba(255,255,255,0.04);
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 16px;
+    }
+    .modal-spec label {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      text-transform: uppercase;
+      color: rgba(255,255,255,0.35);
+      display: block;
+      margin-bottom: 4px;
+    }
+    .modal-spec value {
+      font-size: 16px;
+      font-weight: 700;
+      color: var(--white);
+    }
+    .modal-actions {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+    }
+    .btn-back {
+      background: rgba(255,255,255,0.08);
+      border: 1px solid var(--border);
+      color: rgba(255,255,255,0.7);
+      padding: 14px 24px;
+      border-radius: 50px;
+      font-size: 14px;
+      font-weight: 600;
+      display: inline-flex; align-items: center; gap: 8px;
+      transition: background var(--transition);
+    }
+    .btn-back:hover { background: rgba(255,255,255,0.12); color: var(--white); }
+
+    /* ─── FLOATING WA BUTTON ───────────────────────────────────────── */
+    .float-wa {
+      position: fixed;
+      bottom: 28px; right: 28px;
+      width: 60px; height: 60px;
+      background: #25D366;
+      border-radius: 50%;
+      display: flex; align-items: center; justify-content: center;
+      z-index: 90;
+      box-shadow: 0 4px 20px rgba(37,211,102,0.5);
+      transition: transform var(--transition), box-shadow var(--transition);
+      cursor: pointer;
+    }
+    .float-wa:hover {
+      transform: scale(1.08) translateY(-2px);
+      box-shadow: 0 8px 32px rgba(37,211,102,0.6);
+    }
+    .float-wa-pulse {
+      position: absolute;
+      width: 100%; height: 100%;
+      border-radius: 50%;
+      background: #25D366;
+      animation: pulse-ring 2.5s ease-out infinite;
+    }
+
+    /* ─── ANIMATIONS ───────────────────────────────────────────────── */
+    @keyframes fadeUp {
+      to { opacity: 1; transform: translateY(0); }
+    }
+    @keyframes scrollPulse {
+      0%, 100% { opacity: 0.5; transform: scaleY(1); }
+      50% { opacity: 1; transform: scaleY(1.3); }
+    }
+    @keyframes pulse-ring {
+      0% { transform: scale(1); opacity: 0.5; }
+      100% { transform: scale(1.6); opacity: 0; }
+    }
+    @keyframes shimmer {
+      0% { background-position: -200% 0; }
+      100% { background-position: 200% 0; }
+    }
+
+    /* ─── RESPONSIVE ───────────────────────────────────────────────── */
+    @media (max-width: 1100px) {
+      .navbar { padding: 0 28px; }
+      .container { padding: 0 28px; }
+      .stats-bar { padding: 24px 28px; grid-template-columns: repeat(4,1fr); }
+      .vehicles-grid { grid-template-columns: repeat(2, 1fr); gap: 18px; }
+      .footer-grid { grid-template-columns: 1fr 1fr; gap: 36px; }
+    }
+    @media (max-width: 768px) {
+      :root { --nav-h: 62px; }
+      .nav-links, .nav-cta { display: none; }
+      .nav-mobile-btn { display: flex; }
+      .navbar { padding: 0 20px; }
+      .container { padding: 0 20px; }
+      section { padding: 72px 0; }
+      .stats-bar { grid-template-columns: repeat(2,1fr); padding: 20px; gap: 16px; }
+      .stat-number { font-size: 26px; }
+      .vehicles-grid { grid-template-columns: 1fr; gap: 16px; }
+      .section-header { flex-direction: column; align-items: flex-start; margin-bottom: 36px; }
+      .nosotros-grid { grid-template-columns: 1fr; gap: 40px; }
+      .contacto-grid { grid-template-columns: 1fr; gap: 40px; }
+      .footer-grid { grid-template-columns: 1fr; gap: 28px; }
+      .footer-bottom { flex-direction: column; text-align: center; }
+      .modal-specs-grid { grid-template-columns: repeat(2,1fr); }
+      .modal-body { padding: 24px; }
+      .modal-title { font-size: 24px; }
+      .modal-price { font-size: 28px; }
+      .hero-bg { background-position: 70% center; }
+      .hero-content { padding: 0 20px; }
+      .hero-title {
+        font-size: clamp(36px, 10vw, 56px);
+        line-height: 1.06;
+        margin-bottom: 20px;
+      }
+      .hero-badge { margin-bottom: 22px; }
+      .hero-subtitle {
+        max-width: 44ch;
+        margin-bottom: 30px;
+      }
+      .wa-cta-banner { flex-direction: column; text-align: center; }
+      .filters-bar { gap: 8px; }
+      .inventory-count { margin-left: 0; }
+    }
+    @media (max-width: 480px) {
+      .modal-specs-grid { grid-template-columns: 1fr 1fr; }
+      .card-actions { flex-wrap: wrap; }
+      .hero-actions { flex-direction: column; align-items: flex-start; }
+      .hero-title { font-size: clamp(30px, 10.8vw, 42px); }
+      .hero-subtitle { max-width: 36ch; }
+      .hero-actions .btn-primary,
+      .hero-actions .btn-secondary { width: 100%; justify-content: center; max-width: 300px; }
+    }
+  </style>
+</head>
+<body>
+
+  <!-- ANNOUNCEMENT BAR -->
+  <div class="announcement">
+    Nueva ubicación en Puembo <span>·</span> AV. OSWALDO GUAYASAMIN, ESCALÓN LUMBISI Y QUITO — JUNTO A SUZUKI <span>·</span> WhatsApp: 0991665509
+  </div>
+
+  <!-- NAVBAR -->
+  <nav class="navbar" id="navbar">
+    <a href="#inicio" class="nav-logo">
+      <div class="logo-mark">TM</div>
+      Top Motors
+    </a>
+    <ul class="nav-links">
+      <li><a href="#inicio">Inicio</a></li>
+      <li><a href="#destacados">Destacados</a></li>
+      <li><a href="#inventario">Inventario</a></li>
+      <li><a href="#nosotros">Nosotros</a></li>
+      <li><a href="#contacto">Contacto</a></li>
+    </ul>
+    <a href="#inventario" class="nav-cta nav-links">Ver inventario</a>
+    <button class="nav-mobile-btn" id="mobileMenuBtn" aria-label="Menú">
+      <span></span><span></span><span></span>
+    </button>
+  </nav>
+
+  <!-- MOBILE MENU -->
+  <div class="mobile-menu" id="mobileMenu">
+    <button class="mobile-close" id="mobileClose">✕</button>
+    <a href="#inicio" class="mobile-link">Inicio</a>
+    <a href="#destacados" class="mobile-link">Destacados</a>
+    <a href="#inventario" class="mobile-link">Inventario</a>
+    <a href="#nosotros" class="mobile-link">Nosotros</a>
+    <a href="#contacto" class="mobile-link">Contacto</a>
+  </div>
+
+  <!-- HERO -->
+  <section id="inicio" class="hero">
+    <div class="hero-bg" id="heroBg"></div>
+    <div class="hero-overlay"></div>
+    <div class="hero-content">
+      <div class="hero-badge">Concesionaria Premium · Quito, Ecuador</div>
+      <h1 class="hero-title"><span>Autos seleccionados.</span><span>Calidad premium.</span></h1>
+      <p class="hero-subtitle">Vehículos seminuevos de alta calidad con la mejor garantía del mercado. Experiencia, confianza y los mejores precios en Ecuador.</p>
+      <div class="hero-actions">
+        <a href="#inventario" class="btn-primary">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          Ver inventario
+        </a>
+        <a href="#contacto" class="btn-secondary">Contactar ahora</a>
+      </div>
+    </div>
+    <div class="hero-scroll" onclick="document.getElementById('destacados').scrollIntoView({behavior:'smooth'})">
+      <div class="scroll-line"></div>
+      <span>Explorar</span>
+    </div>
+  </section>
+
+  <!-- STATS BAR -->
+  <div class="stats-bar">
+    <div class="stat-item fade-in">
+      <div class="stat-number">180+</div>
+      <div class="stat-label">Vehículos disponibles</div>
+    </div>
+    <div class="stat-item fade-in">
+      <div class="stat-number">15+</div>
+      <div class="stat-label">Años de experiencia</div>
+    </div>
+    <div class="stat-item fade-in">
+      <div class="stat-number">500+</div>
+      <div class="stat-label">Clientes satisfechos</div>
+    </div>
+    <div class="stat-item fade-in">
+      <div class="stat-number">100%</div>
+      <div class="stat-label">Vehículos verificados</div>
+    </div>
+  </div>
+
+  <!-- FEATURED VEHICLES -->
+  <section id="destacados">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left fade-in">
+          <div class="section-label">Selección especial</div>
+          <h2 class="section-title">Vehículos <em>Destacados</em></h2>
+          <p class="section-sub">Una selección curada de nuestros mejores vehículos disponibles esta semana.</p>
+        </div>
+        <a href="#inventario" class="btn-secondary fade-in" style="flex-shrink:0;">Ver todo el inventario</a>
+      </div>
+      <div class="vehicles-grid fade-in" id="featuredGrid"></div>
+    </div>
+  </section>
+
+  <!-- FULL INVENTORY -->
+  <section id="inventario">
+    <div class="container">
+      <div class="section-header">
+        <div class="section-header-left fade-in">
+          <div class="section-label">Catálogo completo</div>
+          <h2 class="section-title">Nuestro <em>Inventario</em></h2>
+          <p class="section-sub">Todos nuestros vehículos verificados y listos para entrega inmediata.</p>
+        </div>
+      </div>
+      <div class="filters-bar fade-in" id="filtersBar">
+        <button class="filter-btn active" data-brand="all">Todas las marcas</button>
+      </div>
+      <div class="vehicles-grid fade-in" id="inventoryGrid"></div>
+      <div class="pagination" id="pagination"></div>
+    </div>
+  </section>
+
+  <!-- NOSOTROS -->
+  <section id="nosotros">
+    <div class="container">
+      <div class="nosotros-grid">
+        <div class="nosotros-image fade-in">
+          <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80" alt="Top Motors showroom" loading="lazy" onerror="this.style.display='none'" />
+          <div class="nosotros-image-overlay"></div>
+        </div>
+        <div class="fade-in">
+          <div class="section-label">Quiénes somos</div>
+          <h2 class="section-title">Más de 15 años <em>entregando</em> confianza</h2>
+          <p class="section-sub">En Top Motors somos especialistas en vehículos seminuevos de alta calidad. Cada auto en nuestro inventario pasa por una exhaustiva inspección técnica para garantizar tu tranquilidad.</p>
+
+          <div class="notice-card">
+            <div class="icon" aria-hidden="true">
+              <svg fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 21s-6-5.4-6-10a6 6 0 1 1 12 0c0 4.6-6 10-6 10z"/><circle cx="12" cy="11" r="2.5"/></svg>
+            </div>
+            <div>
+              <h4>¡Nos mudamos a Puembo!</h4>
+              <p>AV. OSWALDO GUAYASAMIN, ESCALÓN LUMBISI Y QUITO 170901 — JUNTO A SUZUKI</p>
+            </div>
+          </div>
+
+          <div class="feature-list">
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 12l2 2 4-4m6 2a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="feature-text">
+                <h4>Vehículos 100% verificados</h4>
+                <p>Inspección técnica completa antes de cada venta.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="feature-text">
+                <h4>Los mejores precios del mercado</h4>
+                <p>Financiamiento disponible y precios competitivos.</p>
+              </div>
+            </div>
+            <div class="feature-item">
+              <div class="feature-icon">
+                <svg width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M18.364 5.636l-3.536 3.536m0 5.656l3.536 3.536M9.172 9.172L5.636 5.636m3.536 9.192L5.636 18.364M21 12a9 9 0 11-18 0 9 9 0 0118 0z"/></svg>
+              </div>
+              <div class="feature-text">
+                <h4>Atención personalizada</h4>
+                <p>Te acompañamos en todo el proceso de compra.</p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CONTACTO -->
+  <section id="contacto">
+    <div class="container">
+      <div class="section-header fade-in">
+        <div class="section-header-left">
+          <div class="section-label">Estamos aquí para ti</div>
+          <h2 class="section-title">Contáctanos</h2>
+          <p class="section-sub">¿Listo para encontrar tu próximo vehículo? Escríbenos, llámanos o visítanos.</p>
+        </div>
+      </div>
+      <div class="contacto-grid">
+        <div class="fade-in">
+          <div class="contact-info">
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M17.657 16.657L13.414 20.9a1.998 1.998 0 01-2.827 0l-4.244-4.243a8 8 0 1111.314 0z"/><path d="M15 11a3 3 0 11-6 0 3 3 0 016 0z"/></svg>
+              </div>
+              <div>
+                <h4>Dirección</h4>
+                <p>AV. OSWALDO GUAYASAMIN, ESCALÓN LUMBISI Y QUITO 170901<br>JUNTO A SUZUKI — PUEMBO</p>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 5a2 2 0 012-2h3.28a1 1 0 01.948.684l1.498 4.493a1 1 0 01-.502 1.21l-2.257 1.13a11.042 11.042 0 005.516 5.516l1.13-2.257a1 1 0 011.21-.502l4.493 1.498a1 1 0 01.684.949V19a2 2 0 01-2 2h-1C9.716 21 3 14.284 3 6V5z"/></svg>
+              </div>
+              <div>
+                <h4>Teléfonos / WhatsApp</h4>
+                <a href="tel:0991665509">0991665509</a><br>
+                <a href="tel:0988517014">0988517014</a>
+              </div>
+            </div>
+            <div class="contact-item">
+              <div class="contact-icon">
+                <svg width="22" height="22" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 8l7.89 5.26a2 2 0 002.22 0L21 8M5 19h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v10a2 2 0 002 2z"/></svg>
+              </div>
+              <div>
+                <h4>Correo electrónico</h4>
+                <a href="mailto:tonyontaneda@hotmail.com">tonyontaneda@hotmail.com</a>
+              </div>
+            </div>
+          </div>
+          <div class="wa-cta-banner">
+            <div>
+              <h4>¿Prefieres WhatsApp?</h4>
+              <p>Escríbenos directamente y te respondemos al instante.</p>
+            </div>
+            <a href="https://wa.me/593991665509?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20su%20inventario%20de%20veh%C3%ADculos." target="_blank" class="btn-whatsapp" style="flex-shrink:0;">
+              <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+              Abrir WhatsApp
+            </a>
+          </div>
+        </div>
+        <div class="fade-in">
+          <div class="contact-form">
+            <h3 class="form-title">Envíanos un mensaje</h3>
+            <div class="form-group">
+              <label>Nombre completo</label>
+              <input type="text" placeholder="Tu nombre" />
+            </div>
+            <div class="form-group">
+              <label>Teléfono / WhatsApp</label>
+              <input type="tel" placeholder="0991xxxxxx" />
+            </div>
+            <div class="form-group">
+              <label>Correo electrónico</label>
+              <input type="email" placeholder="tu@correo.com" />
+            </div>
+            <div class="form-group">
+              <label>Vehículo de interés</label>
+              <select>
+                <option value="">Selecciona una opción</option>
+                <option>Toyota</option>
+                <option>Chevrolet</option>
+                <option>Mazda</option>
+                <option>Kia</option>
+                <option>Hyundai</option>
+                <option>Mitsubishi</option>
+                <option>Ford</option>
+                <option>Honda</option>
+                <option>Nissan</option>
+                <option>Otro</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>Mensaje</label>
+              <textarea placeholder="¿En qué podemos ayudarte?"></textarea>
+            </div>
+            <button class="btn-submit" onclick="handleFormSubmit(event)">Enviar mensaje</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div class="container">
+      <div class="footer-grid">
+        <div class="footer-brand">
+          <div class="nav-logo" style="margin-bottom:0">
+            <div class="logo-mark">TM</div>
+            Top Motors
+          </div>
+          <p>Tu concesionaria de confianza en Ecuador. Vehículos seminuevos verificados con los mejores precios del mercado.</p>
+          <div style="margin-top:20px;display:flex;gap:12px;">
+            <a href="https://wa.me/593991665509" target="_blank" style="width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,0.08);border:1px solid var(--border);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);transition:all var(--transition);" onmouseover="this.style.background='rgba(37,211,102,0.15)';this.style.color='#25D366';" onmouseout="this.style.background='rgba(255,255,255,0.08)';this.style.color='rgba(255,255,255,0.6)';">
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+            </a>
+          </div>
+        </div>
+        <div class="footer-col">
+          <h5>Navegación</h5>
+          <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#destacados">Destacados</a></li>
+            <li><a href="#inventario">Inventario</a></li>
+            <li><a href="#nosotros">Nosotros</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Marcas</h5>
+          <ul>
+            <li><a href="#inventario">Toyota</a></li>
+            <li><a href="#inventario">Chevrolet</a></li>
+            <li><a href="#inventario">Mazda</a></li>
+            <li><a href="#inventario">Kia</a></li>
+            <li><a href="#inventario">Hyundai</a></li>
+          </ul>
+        </div>
+        <div class="footer-col">
+          <h5>Contacto</h5>
+          <ul>
+            <li><a href="tel:0991665509">0991665509</a></li>
+            <li><a href="tel:0988517014">0988517014</a></li>
+            <li><a href="mailto:tonyontaneda@hotmail.com">tonyontaneda@hotmail.com</a></li>
+            <li><a href="#nosotros">Puembo, Quito</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <p>© 2025 Top Motors. Todos los derechos reservados.</p>
+        <p>Quito, Ecuador · AV. OSWALDO GUAYASAMIN, JUNTO A SUZUKI</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- VEHICLE DETAIL MODAL -->
+  <div class="modal-overlay" id="modalOverlay">
+    <div class="modal" id="modalContent">
+      <div class="modal-image" id="modalImage"></div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+      <div class="modal-body" id="modalBody"></div>
+    </div>
+  </div>
+
+  <!-- FLOATING WHATSAPP -->
+  <a href="https://wa.me/593991665509?text=Hola%2C%20me%20interesa%20conocer%20m%C3%A1s%20sobre%20su%20inventario." target="_blank" class="float-wa" title="WhatsApp">
+    <div class="float-wa-pulse"></div>
+    <svg width="28" height="28" viewBox="0 0 24 24" fill="white"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+  </a>
+
+  <script>
+  // ─── INVENTORY DATA ───────────────────────────────────────────────────────
+  // NOTE: The live site at topmotorsusados.com could not be accessed automatically.
+  // Replace this array with the exact vehicle data from your live site.
+  // Structure per vehicle: { id, brand, model, year, price, mileage, transmission, fuel, color, location, featured, image }
+  // ─────────────────────────────────────────────────────────────────────────
+  const vehicles = [
+    // ── PAGE 1 ──
+    { id:1,  brand:"Toyota",     model:"Hilux 4x4 TDi",          year:2022, price:32900, mileage:45000, transmission:"Mecánico",   fuel:"Diésel",   color:"Blanco",   location:"Quito", featured:true,  image:"" },
+    { id:2,  brand:"Chevrolet",  model:"D-Max 4x4",               year:2021, price:28500, mileage:62000, transmission:"Mecánico",   fuel:"Diésel",   color:"Gris",     location:"Quito", featured:true,  image:"" },
+    { id:3,  brand:"Mazda",      model:"BT-50 4x4",               year:2021, price:27900, mileage:55000, transmission:"Mecánico",   fuel:"Diésel",   color:"Negro",    location:"Quito", featured:true,  image:"" },
+    { id:4,  brand:"Toyota",     model:"Fortuner 4x4",            year:2020, price:45000, mileage:38000, transmission:"Automático", fuel:"Diésel",   color:"Plata",    location:"Quito", featured:false, image:"" },
+    { id:5,  brand:"Kia",        model:"Sportage EX",             year:2022, price:22500, mileage:30000, transmission:"Automático", fuel:"Gasolina", color:"Blanco",   location:"Quito", featured:false, image:"" },
+    { id:6,  brand:"Hyundai",    model:"Tucson Limited",          year:2021, price:24900, mileage:41000, transmission:"Automático", fuel:"Gasolina", color:"Azul",     location:"Quito", featured:false, image:"" },
+    { id:7,  brand:"Mitsubishi", model:"Outlander PHEV",          year:2021, price:35000, mileage:28000, transmission:"Automático", fuel:"Híbrido",  color:"Blanco",   location:"Quito", featured:false, image:"" },
+    { id:8,  brand:"Ford",       model:"Explorer XLT 4WD",        year:2020, price:38500, mileage:52000, transmission:"Automático", fuel:"Gasolina", color:"Negro",    location:"Quito", featured:false, image:"" },
+    { id:9,  brand:"Chevrolet",  model:"Captiva Premier",         year:2022, price:21900, mileage:25000, transmission:"Automático", fuel:"Gasolina", color:"Gris",     location:"Quito", featured:false, image:"" },
+    // ── PAGE 2 ──
+    { id:10, brand:"Toyota",     model:"Corolla XEi",             year:2022, price:19500, mileage:33000, transmission:"Automático", fuel:"Gasolina", color:"Blanco",   location:"Quito", featured:false, image:"" },
+    { id:11, brand:"Mazda",      model:"CX-5 Grand Touring",      year:2022, price:26900, mileage:29000, transmission:"Automático", fuel:"Gasolina", color:"Rojo",     location:"Quito", featured:false, image:"" },
+    { id:12, brand:"Kia",        model:"Sorento EX V6",           year:2021, price:31500, mileage:44000, transmission:"Automático", fuel:"Gasolina", color:"Negro",    location:"Quito", featured:false, image:"" },
+    { id:13, brand:"Honda",      model:"CR-V EXL AWD",            year:2021, price:28900, mileage:37000, transmission:"Automático", fuel:"Gasolina", color:"Plata",    location:"Quito", featured:false, image:"" },
+    { id:14, brand:"Toyota",     model:"4Runner TRD Off Road",    year:2020, price:48000, mileage:61000, transmission:"Automático", fuel:"Gasolina", color:"Verde",    location:"Quito", featured:false, image:"" },
+    { id:15, brand:"Nissan",     model:"Frontier Pro-4X 4WD",     year:2021, price:29500, mileage:48000, transmission:"Mecánico",   fuel:"Diésel",   color:"Naranja",  location:"Quito", featured:false, image:"" },
+    { id:16, brand:"Mitsubishi", model:"Montero Sport GLS",       year:2022, price:33900, mileage:22000, transmission:"Automático", fuel:"Gasolina", color:"Blanco",   location:"Quito", featured:false, image:"" },
+    { id:17, brand:"Hyundai",    model:"Santa Fe Ultimate AWD",   year:2021, price:36500, mileage:31000, transmission:"Automático", fuel:"Gasolina", color:"Gris",     location:"Quito", featured:false, image:"" },
+    { id:18, brand:"Chevrolet",  model:"Equinox LS AWD",          year:2022, price:23500, mileage:19000, transmission:"Automático", fuel:"Gasolina", color:"Azul",     location:"Quito", featured:false, image:"" },
+    // ── PAGE 3 ──
+    { id:19, brand:"Toyota",     model:"Prado TXL 3.0 TDi",      year:2020, price:55000, mileage:58000, transmission:"Automático", fuel:"Diésel",   color:"Plata",    location:"Quito", featured:false, image:"" },
+    { id:20, brand:"Mazda",      model:"3 Hatchback Skyactiv",    year:2022, price:17500, mileage:26000, transmission:"Automático", fuel:"Gasolina", color:"Rojo",     location:"Quito", featured:false, image:"" },
+    { id:21, brand:"Ford",       model:"Ranger XLT 4WD",          year:2021, price:31000, mileage:43000, transmission:"Mecánico",   fuel:"Diésel",   color:"Blanco",   location:"Quito", featured:false, image:"" },
+    { id:22, brand:"Kia",        model:"Seltos SX AWD",           year:2022, price:21000, mileage:18000, transmission:"Automático", fuel:"Gasolina", color:"Negro",    location:"Quito", featured:false, image:"" },
+    { id:23, brand:"Honda",      model:"Pilot Elite AWD",         year:2020, price:39500, mileage:55000, transmission:"Automático", fuel:"Gasolina", color:"Blanco",   location:"Quito", featured:false, image:"" },
+    { id:24, brand:"Nissan",     model:"X-Trail Exclusive 4WD",   year:2022, price:27500, mileage:21000, transmission:"Automático", fuel:"Gasolina", color:"Gris",     location:"Quito", featured:false, image:"" },
+    { id:25, brand:"Mitsubishi", model:"Eclipse Cross SEL S-AWC", year:2022, price:26000, mileage:15000, transmission:"Automático", fuel:"Gasolina", color:"Rojo",     location:"Quito", featured:false, image:"" },
+    { id:26, brand:"Toyota",     model:"RAV4 TRD Off-Road AWD",   year:2021, price:34500, mileage:36000, transmission:"Automático", fuel:"Gasolina", color:"Blanco",   location:"Quito", featured:false, image:"" },
+    { id:27, brand:"Chevrolet",  model:"Traverse Premier AWD",    year:2020, price:37000, mileage:64000, transmission:"Automático", fuel:"Gasolina", color:"Negro",    location:"Quito", featured:false, image:"" },
+  ];
+  // ─────────────────────────────────────────────────────────────────────────
+  // ADD MORE VEHICLES HERE following the same pattern.
+  // Total should match live site (180+ vehicles).
+  // ─────────────────────────────────────────────────────────────────────────
+
+  const VEHICLES_PER_PAGE = 9;
+  let currentPage = 1;
+  let currentBrand = 'all';
+  let filteredVehicles = [...vehicles];
+
+  // ─── FORMAT HELPERS ──────────────────────────────────────────────────────
+  const fmtPrice = p => '$\u00A0' + p.toLocaleString('es-EC');
+  const fmtKm    = k => k.toLocaleString('es-EC') + ' km';
+
+  // ─── ICON SVGS ───────────────────────────────────────────────────────────
+  const iconCalendar = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><rect x="3" y="4" width="18" height="18" rx="2" ry="2"/><line x1="16" y1="2" x2="16" y2="6"/><line x1="8" y1="2" x2="8" y2="6"/><line x1="3" y1="10" x2="21" y2="10"/></svg>`;
+  const iconKm       = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>`;
+  const iconGear     = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93A10 10 0 0 0 4.93 19.07M4.93 4.93A10 10 0 0 1 19.07 19.07"/></svg>`;
+  const iconFuel     = `<svg width="13" height="13" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M3 22V6a2 2 0 0 1 2-2h6a2 2 0 0 1 2 2v16M3 22h12M13 8h1a2 2 0 0 1 2 2v3a2 2 0 0 0 2 2h0a2 2 0 0 0 2-2V9.83a2 2 0 0 0-.59-1.42L18 6"/></svg>`;
+  const iconLocation = `<svg width="11" height="11" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0 1 18 0z"/><circle cx="12" cy="10" r="3"/></svg>`;
+  const iconCar      = `<svg width="48" height="48" fill="none" stroke="currentColor" stroke-width="1.5" viewBox="0 0 24 24"><path d="M16 3H8L4 9h16l-4-6zM2 9h20v4H2V9zM6 17a2 2 0 100-4 2 2 0 000 4zM18 17a2 2 0 100-4 2 2 0 000 4z"/></svg>`;
+  const iconWA       = `<svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>`;
+
+  // ─── BUILD CARD ──────────────────────────────────────────────────────────
+  function buildCard(v, isFeatured = false) {
+    const waMsg = encodeURIComponent(`Hola, estoy interesado en este vehículo: ${v.brand} ${v.model} ${v.year}`);
+    const imageHtml = v.image
+      ? `<img src="${v.image}" alt="${v.brand} ${v.model}" loading="lazy" onerror="this.parentElement.innerHTML='<div class=card-image-placeholder>${iconCar}<span>${v.brand} ${v.model}</span></div>'">`
+      : `<div class="card-image-placeholder">${iconCar}<span>${v.brand} ${v.model}</span></div>`;
+    return `
+      <div class="vehicle-card" onclick="openModal(${v.id})">
+        <div class="card-image">
+          ${imageHtml}
+          ${isFeatured ? '<div class="card-badge">Destacado</div>' : ''}
+        </div>
+        <div class="card-body">
+          <div class="card-brand">${v.brand}</div>
+          <div class="card-name">${v.model} ${v.year}</div>
+          <div class="card-location">${iconLocation} ${v.location}</div>
+          <div class="card-specs">
+            <div class="spec-chip">${iconCalendar} ${v.year}</div>
+            <div class="spec-chip">${iconKm} ${fmtKm(v.mileage)}</div>
+            <div class="spec-chip">${iconGear} ${v.transmission}</div>
+            <div class="spec-chip">${iconFuel} ${v.fuel}</div>
+          </div>
+          <div class="card-footer">
+            <div class="card-price"><span>USD</span>${fmtPrice(v.price)}</div>
+            <div class="card-actions">
+              <button class="btn-card-detail" onclick="event.stopPropagation();openModal(${v.id})">Ver más</button>
+              <a href="https://wa.me/593991665509?text=${waMsg}" target="_blank" class="btn-card-wa" onclick="event.stopPropagation()" title="WhatsApp">${iconWA}</a>
+            </div>
+          </div>
+        </div>
+      </div>`;
+  }
+
+  // ─── RENDER FEATURED ─────────────────────────────────────────────────────
+  function renderFeatured() {
+    const featured = vehicles.filter(v => v.featured).slice(0, 3);
+    document.getElementById('featuredGrid').innerHTML = featured.map(v => buildCard(v, true)).join('');
+  }
+
+  // ─── RENDER INVENTORY ────────────────────────────────────────────────────
+  function renderInventory() {
+    const start = (currentPage - 1) * VEHICLES_PER_PAGE;
+    const page  = filteredVehicles.slice(start, start + VEHICLES_PER_PAGE);
+    document.getElementById('inventoryGrid').innerHTML = page.map(v => buildCard(v)).join('');
+    renderPagination();
+    updateCount();
+  }
+
+  function updateCount() {
+    const el = document.querySelector('.inventory-count');
+    if (el) el.innerHTML = `Mostrando <strong>${filteredVehicles.length}</strong> vehículos`;
+  }
+
+  // ─── PAGINATION ──────────────────────────────────────────────────────────
+  function renderPagination() {
+    const total = Math.ceil(filteredVehicles.length / VEHICLES_PER_PAGE);
+    const pg    = document.getElementById('pagination');
+    if (!pg) return;
+    let html = '';
+
+    html += `<button class="page-btn prev-next" onclick="gotoPage(${currentPage-1})" ${currentPage===1?'disabled':''}>
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+      Anterior
+    </button>`;
+
+    const maxBtns = 7;
+    let pages = [];
+    if (total <= maxBtns) {
+      pages = Array.from({length:total}, (_,i) => i+1);
+    } else {
+      pages = [1];
+      let start = Math.max(2, currentPage - 2);
+      let end   = Math.min(total - 1, currentPage + 2);
+      if (start > 2) pages.push('…');
+      for (let i = start; i <= end; i++) pages.push(i);
+      if (end < total - 1) pages.push('…');
+      pages.push(total);
+    }
+
+    pages.forEach(p => {
+      if (p === '…') {
+        html += `<span class="page-btn" style="cursor:default;opacity:0.4">…</span>`;
+      } else {
+        html += `<button class="page-btn ${p===currentPage?'active':''}" onclick="gotoPage(${p})">${p}</button>`;
+      }
+    });
+
+    html += `<button class="page-btn prev-next" onclick="gotoPage(${currentPage+1})" ${currentPage===total?'disabled':''}>
+      Siguiente
+      <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M9 18l6-6-6-6"/></svg>
+    </button>`;
+
+    pg.innerHTML = html;
+  }
+
+  function gotoPage(n) {
+    const total = Math.ceil(filteredVehicles.length / VEHICLES_PER_PAGE);
+    if (n < 1 || n > total) return;
+    currentPage = n;
+    renderInventory();
+    document.getElementById('inventario').scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+
+  // ─── BRAND FILTERS ───────────────────────────────────────────────────────
+  function initFilters() {
+    const brands = ['all', ...new Set(vehicles.map(v => v.brand).sort())];
+    const bar = document.getElementById('filtersBar');
+    let countHtml = `<span class="inventory-count"></span>`;
+    bar.innerHTML = brands.map(b =>
+      `<button class="filter-btn ${b==='all'?'active':''}" data-brand="${b}" onclick="filterByBrand('${b}')">${b==='all'?'Todas las marcas':b}</button>`
+    ).join('') + countHtml;
+  }
+
+  function filterByBrand(brand) {
+    currentBrand = brand;
+    currentPage  = 1;
+    filteredVehicles = brand === 'all' ? [...vehicles] : vehicles.filter(v => v.brand === brand);
+    document.querySelectorAll('.filter-btn').forEach(btn => {
+      btn.classList.toggle('active', btn.dataset.brand === brand);
+    });
+    renderInventory();
+  }
+
+  // ─── MODAL ───────────────────────────────────────────────────────────────
+  function openModal(id) {
+    const v = vehicles.find(x => x.id === id);
+    if (!v) return;
+    const waMsg = encodeURIComponent(`Hola, estoy interesado en este vehículo: ${v.brand} ${v.model} ${v.year}`);
+
+    document.getElementById('modalImage').innerHTML = v.image
+      ? `<img src="${v.image}" alt="${v.brand} ${v.model}" style="width:100%;height:100%;object-fit:cover;" onerror="this.parentElement.innerHTML='<div class=modal-image-placeholder>${iconCar.replace(/width="48" height="48"/,'width="72" height="72"')}<span>${v.brand} ${v.model}</span></div>'">`
+      : `<div class="modal-image-placeholder">${iconCar.replace(/width="48" height="48"/,'width="72" height="72"')}<span>${v.brand} ${v.model}</span></div>`;
+
+    document.getElementById('modalBody').innerHTML = `
+      <div class="modal-brand-label">${v.brand}</div>
+      <div class="modal-title">${v.model}</div>
+      <div class="modal-price"><span>USD</span> ${fmtPrice(v.price)}</div>
+      <div class="modal-specs-grid">
+        <div class="modal-spec"><label>Año</label><value>${v.year}</value></div>
+        <div class="modal-spec"><label>Kilometraje</label><value>${fmtKm(v.mileage)}</value></div>
+        <div class="modal-spec"><label>Transmisión</label><value>${v.transmission}</value></div>
+        <div class="modal-spec"><label>Combustible</label><value>${v.fuel}</value></div>
+        <div class="modal-spec"><label>Color</label><value>${v.color}</value></div>
+        <div class="modal-spec"><label>Ubicación</label><value>${v.location}</value></div>
+      </div>
+      <div class="modal-actions">
+        <a href="https://wa.me/593991665509?text=${waMsg}" target="_blank" class="btn-whatsapp" style="padding:14px 28px;font-size:15px;">
+          ${iconWA.replace('width="16" height="16"','width="18" height="18"')}
+          Consultar por WhatsApp
+        </a>
+        <button class="btn-back" onclick="closeModal()">
+          <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M15 18l-6-6 6-6"/></svg>
+          Volver
+        </button>
+      </div>`;
+
+    document.getElementById('modalOverlay').classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeModal() {
+    document.getElementById('modalOverlay').classList.remove('open');
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('modalOverlay').addEventListener('click', function(e) {
+    if (e.target === this) closeModal();
+  });
+  document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+  // ─── NAVBAR SCROLL ───────────────────────────────────────────────────────
+  window.addEventListener('scroll', () => {
+    document.getElementById('navbar').classList.toggle('scrolled', window.scrollY > 40);
+  }, { passive: true });
+
+  // ─── MOBILE MENU ─────────────────────────────────────────────────────────
+  const mobileMenu    = document.getElementById('mobileMenu');
+  const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+  const mobileClose   = document.getElementById('mobileClose');
+  mobileMenuBtn.addEventListener('click', () => mobileMenu.classList.add('open'));
+  mobileClose.addEventListener('click',  () => mobileMenu.classList.remove('open'));
+  document.querySelectorAll('.mobile-link').forEach(a => {
+    a.addEventListener('click', () => mobileMenu.classList.remove('open'));
+  });
+
+  // ─── HERO BG ANIMATE ─────────────────────────────────────────────────────
+  setTimeout(() => document.getElementById('heroBg').classList.add('loaded'), 100);
+
+  // ─── INTERSECTION OBSERVER (fade-in) ─────────────────────────────────────
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) { e.target.classList.add('visible'); io.unobserve(e.target); }
+    });
+  }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+  document.querySelectorAll('.fade-in').forEach(el => io.observe(el));
+
+  // ─── FORM SUBMIT ─────────────────────────────────────────────────────────
+  function handleFormSubmit(e) {
+    e.preventDefault();
+    const btn = e.target;
+    const orig = btn.textContent;
+    btn.textContent = '✓ Mensaje enviado';
+    btn.style.background = '#25D366';
+    btn.style.color = '#fff';
+    setTimeout(() => { btn.textContent = orig; btn.style.background = ''; btn.style.color = ''; }, 3000);
+  }
+
+  // ─── INIT ─────────────────────────────────────────────────────────────────
+  renderFeatured();
+  initFilters();
+  renderInventory();
+  </script>
+</body>
+</html>
 
