@@ -668,7 +668,12 @@
       aspect-ratio: 4/3;
       background: linear-gradient(135deg, #0F2236, #1a3a5c);
     }
-    .nosotros-image img { width: 100%; height: 100%; object-fit: cover; }
+    .nosotros-image img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      object-position: center 42%;
+    }
     .nosotros-image-overlay {
       position: absolute;
       inset: 0;
@@ -1054,6 +1059,7 @@
       .vehicles-grid { grid-template-columns: 1fr; gap: 16px; }
       .section-header { flex-direction: column; align-items: flex-start; margin-bottom: 36px; }
       .nosotros-grid { grid-template-columns: 1fr; gap: 40px; }
+      .nosotros-image img { object-position: center 36%; }
       .contacto-grid { grid-template-columns: 1fr; gap: 40px; }
       .footer-grid { grid-template-columns: 1fr; gap: 28px; }
       .footer-bottom { flex-direction: column; text-align: center; }
@@ -1204,7 +1210,7 @@
     <div class="container">
       <div class="nosotros-grid">
         <div class="nosotros-image fade-in">
-          <img src="https://images.unsplash.com/photo-1568605114967-8130f3a36994?w=800&q=80" alt="Top Motors showroom" loading="lazy" onerror="this.style.display='none'" />
+          <img src="https://raw.githubusercontent.com/infooxbarec-star/TOP-MOTORS/refs/heads/main/ChatGPT%20Image%20Apr%2015%2C%202026%20at%2006_56_35%20PM.png" alt="Top Motors showroom" loading="lazy" onerror="this.style.display='none'" />
           <div class="nosotros-image-overlay"></div>
         </div>
         <div class="fade-in">
@@ -1694,4 +1700,3 @@
   </script>
 </body>
 </html>
-
